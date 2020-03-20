@@ -12,13 +12,14 @@ type ProductRepositoryImpl struct{}
 func (r *ProductRepositoryImpl) GetProducts(ctx context.Context) ([]entity.Product, error) {
 
 	c := make(chan []entity.Product, 1)
-	childCtx, _ := context.WithTimeout(ctx, time.Second*5)
+
+	childCtx, cancel := context.WithTimeout(ctx, time.Second*5)
+	defer cancel()
 
 	go func(ctx context.Context) { c <- r.FindProducts(ctx) }(childCtx)
 
 	select {
 	case <-childCtx.Done():
-		<-c
 		return nil, errors.New("query canceled")
 	case prods := <-c:
 		return prods, nil

@@ -1,0 +1,161 @@
+main func()
+  b1:
+    v1 = InitMem <mem>
+    v2 = SP <uintptr>
+    v3 = SB <uintptr>
+    v4 = ConstSlice <[]byte> (b[[]byte])
+    v5 = ConstString <string> {"Hello, string to []byte ."} (s[string], strings.s[string])
+    v6 = ConstNil <*strings.Reader> (~R0[*strings.Reader]) DEAD
+    v7 = InlMark <void> [0] v1
+    v9 = ConstString <string> {""}
+    v10 = Const64 <int64> [0]
+    v11 = Const64 <int> [0] (strings.n[int])
+    v12 = VarDef <mem> {.autotmp_15} v1
+    v13 = LocalAddr <*strings.Reader> {.autotmp_15} v2 v12
+    v22 = Const64 <int> [-1]
+    v29 = ConstInterface <error> (strings.err[error])
+    v41 = Addr <*error> {io.EOF} v3
+    v61 = Const64 <int> [1]
+    v80 = OffPtr <**byte> [0] v2
+    v85 = OffPtr <**byte> [8] v2
+    v89 = OffPtr <*uintptr> [16] v2
+    v90 = Const64 <uintptr> [1]
+    v109 = OffPtr <*interface {}> [0] v2
+    v110 = Addr <*uint8> {type.string} v3
+    v111 = Addr <*string> {""..stmp_0} v3
+    v8 = StructMake3 <strings.Reader> v9 v10 v11
+    v14 = Store <mem> {strings.Reader} v13 v8 v12
+    v15 = LocalAddr <*strings.Reader> {.autotmp_15} v2 v14 (~R0[*strings.Reader])
+    v16 = NilCheck <void> v15 v14
+    v17 = OffPtr <*string> [0] v15
+    v18 = Store <mem> {string} v17 v5 v14
+    v19 = NilCheck <void> v15 v18
+    v20 = OffPtr <*int64> [16] v15
+    v21 = Store <mem> {int64} v20 v10 v18
+    v23 = NilCheck <void> v15 v21
+    v24 = OffPtr <*int> [24] v15
+    v25 = Store <mem> {int} v24 v22 v21
+    Plain -> b2
+  b2: <- b1
+    v26 = Copy <*strings.Reader> v15 (~R0[*strings.Reader])
+    v27 = Copy <*strings.Reader> v26 (r[*strings.Reader], strings.r[*strings.Reader])
+    v28 = Copy <[]byte> v4 (b[[]byte], strings.b[[]byte])
+    v30 = Copy <mem> v25
+    v31 = InlMark <void> [1] v30
+    v32 = NilCheck <void> v27 v30
+    v33 = OffPtr <*string> [0] v27
+    v34 = Load <string> v33 v30
+    v35 = StringLen <int> v34
+    v36 = NilCheck <void> v27 v30
+    v37 = OffPtr <*int64> [16] v27
+    v38 = Load <int64> v37 v30
+    v39 = Copy <int64> v35
+    v40 = Geq64 <bool> v38 v39
+    If v40 -> b4 b5
+  b3: <- b5
+    v44 = Copy <*strings.Reader> v27 (strings.r[*strings.Reader])
+    v45 = Copy <mem> v30
+    v46 = NilCheck <void> v44 v45
+    v47 = OffPtr <*int> [24] v44
+    v48 = Store <mem> {int} v47 v22 v45
+    v49 = NilCheck <void> v44 v48
+    v50 = OffPtr <*int64> [16] v44
+    v51 = Load <int64> v50 v48
+    v52 = NilCheck <void> v44 v48
+    v53 = OffPtr <*string> [0] v44
+    v54 = Load <string> v53 v48
+    v55 = StringPtr <*uint8> v54
+    v56 = StringLen <int> v54
+    v57 = IsSliceInBounds <bool> v51 v56
+    If v57 -> b7 b8 (likely)
+  b4: <- b2
+    v42 = Copy <mem> v30
+    v43 = Load <error> v41 v42 (strings.err[error])
+    Plain -> b6
+  b5: <- b2
+    Plain -> b3
+  b6: <- b4 b11
+    v105 = Phi <int> v11 v94 (strings.n[int]) DEAD
+    v107 = Phi <error> v43 v121 (err[error], strings.err[error])
+    v117 = Phi <mem> v42 v104
+    v106 = Copy <int> v105 DEAD
+    v108 = NeqInter <bool> v107 v29
+    If v108 -> b14 b13
+  b7: <- b3
+    v60 = Sub64 <int> v56 v51
+    v62 = Mul64 <int> v51 v61
+    v63 = Slicemask <int> v60
+    v64 = And64 <int> v62 v63
+    v65 = AddPtr <*uint8> v55 v64
+    v66 = StringMake <string> v65 v60
+    v67 = Copy <[]byte> v28 (strings.b[[]byte])
+    v68 = SliceLen <int> v67
+    v69 = StringLen <int> v66
+    v70 = Greater64 <bool> v68 v69
+    If v70 -> b10 b9
+  b8: <- b3
+    v58 = Copy <mem> v48
+    v59 = PanicBounds <mem> [6] v51 v56 v58
+    Exit v59
+  b9: <- b7 b10
+    v75 = Phi <string> v66 v71
+    v119 = Phi <int> v68 v72
+    v73 = Copy <[]byte> v67
+    v74 = SlicePtr <*byte> v73
+    v76 = StringPtr <*uint8> v75
+    v77 = NeqPtr <bool> v74 v76
+    v118 = Copy <mem> v48
+    v120 = Copy <*strings.Reader> v44 (strings.r[*strings.Reader])
+    v122 = Copy <error> v29 (strings.err[error])
+    If v77 -> b12 b11 (likely)
+  b10: <- b7
+    v71 = Copy <string> v66
+    v72 = StringLen <int> v71
+    Plain -> b9
+  b11: <- b9 b12
+    v94 = Phi <int> v119 v78 (strings.n[int])
+    v96 = Phi <mem> v118 v93
+    v95 = Copy <*strings.Reader> v120 (strings.r[*strings.Reader])
+    v97 = NilCheck <void> v95 v96
+    v98 = OffPtr <*int64> [16] v95
+    v99 = Load <int64> v98 v96
+    v100 = Copy <int64> v94
+    v101 = Add64 <int64> v99 v100
+    v102 = NilCheck <void> v95 v96
+    v103 = OffPtr <*int64> [16] v95
+    v104 = Store <mem> {int64} v103 v101 v96
+    v121 = Copy <error> v122 (strings.err[error])
+    Plain -> b6
+  b12: <- b9
+    v78 = Copy <int> v119
+    v79 = Copy <uintptr> v78
+    v81 = Copy <[]byte> v73
+    v82 = SlicePtr <*byte> v81
+    v83 = Copy <mem> v118
+    v84 = Store <mem> {*byte} v80 v82 v83
+    v86 = Copy <string> v75
+    v87 = StringPtr <*uint8> v86
+    v88 = Store <mem> {*byte} v85 v87 v84
+    v91 = Mul64 <uintptr> v79 v90
+    v92 = Store <mem> {uintptr} v89 v91 v88
+    v93 = StaticCall <mem> {runtime.memmove} [24] v92
+    Plain -> b11
+  b13: <- b6
+    v116 = Copy <mem> v117
+    Ret v116
+  b14: <- b6
+    v112 = IMake <interface {}> v110 v111
+    v113 = Copy <mem> v117
+    v114 = Store <mem> {interface {}} v109 v112 v113
+    v115 = StaticCall <mem> {runtime.gopanic} [16] v114
+    Exit v115
+name b[[]byte]: [v4 v28]
+name s[string]: [v5]
+name strings.s[string]: [v5]
+name ~R0[*strings.Reader]: [v6 v15 v26]
+name r[*strings.Reader]: [v27]
+name strings.r[*strings.Reader]: [v27 v44 v95 v120]
+name strings.b[[]byte]: [v28 v67]
+name strings.n[int]: [v11 v11 v94 v105]
+name strings.err[error]: [v29 v43 v107 v121 v122]
+name err[error]: [v107]
