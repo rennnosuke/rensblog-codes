@@ -19,7 +19,7 @@ func TestPrintlnBuffer(t *testing.T) {
 	for _, r := range s {
 		fmt.Print(string(r))
 	}
-	
+
 	apple := "🍎"
 	rApple := []rune(apple)
 	fmt.Println(string(rApple[0]))
